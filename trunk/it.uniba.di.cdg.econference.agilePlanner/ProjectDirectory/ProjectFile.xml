@@ -1,0 +1,6 @@
+<Project ID="1" Name="ProjectFile">
+  <Backlog Height="0" Width="0" ID="2" Name="Project Backlog" Parent="1" XLocation="0" YLocation="0">
+    <StoryCard Actual="0.0" BestCase="0.0" CardOwner="Owner" Color="red" CurrentSideUp="0" Description="description" Height="150" ID="6" MostLikely="0.0" Name="Default StoryCard" Parent="2" RotationAngle="0.0" Status="Defined" TestText="" TestURL="http://localhost/?something_else_is_new" Width="300" WorstCase="0.0" XLocation="172" YLocation="162" RallyID="false" FitID="TestStorage.DefaultTest"/>
+  </Backlog>
+  <Legend aqua="aqua3" blue="Feature" gray="gray1" green="Rally" khaki="khaki1" peach="peach2" pink="pink1" red="Bug" white="Spike" yellow="yellow1"/>
+</Project>

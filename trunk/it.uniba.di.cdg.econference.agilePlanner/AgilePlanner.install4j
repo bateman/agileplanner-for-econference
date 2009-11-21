@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<install4j version="3.2.5">
+  <directoryPresets config="." />
+  <application name="AgilePlanner" distributionSourceDir="" applicationId="1648-3231-8101-4752" mediaDir="." mediaFilePattern="%SHORT_NAME%_%PLATFORM%_%VERSION%" compression="6" lzmaCompression="false" keepModificationTimes="false" shortName="agileplanner" publisher="ASE University of Calgary" publisherWeb="http://pages.cpsc.ucalgary.ca/~maurer/index.php/AgilePlanning/AgilePlanner" version="%PRODUCTVERSION%" allPathsRelative="true" backupOnSave="false" autoSave="false" macSignature="????" javaMinVersion="1.6" javaMaxVersion="" allowBetaVM="false">
+    <searchSequence>
+      <registry />
+      <envVar name="JAVA_HOME" />
+      <envVar name="JDK_HOME" />
+    </searchSequence>
+    <variables>
+      <variable name="PRODUCTVERSION" value="" />
+      <variable name="FILEFOLDER" value="" />
+      <variable name="BUILDVERSION" value="" />
+    </variables>
+  </application>
+  <files>
+    <mountPoints>
+      <mountPoint name="" id="19" location="" mode="755" />
+    </mountPoints>
+    <entries>
+      <dirEntry mountPoint="19" file="%FILEFOLDER%" overwrite="4" shared="false" mode="644" dontUninstall="false" excludeSuffixes="" dirMode="755">
+        <exclude />
+      </dirEntry>
+    </entries>
+    <components />
+  </files>
+  <launchers>
+    <launcher name="AgilePlanner" id="6" external="false" excludeFromMenu="false" menuName="" icnsFile="" pngIcon16File="Icons/rally_app_icons_16x16.png" pngIcon32File="Icons/rally_app_icons_32x32.png" macServiceDependencies="" allowUserChangeServiceStartType="true">
+      <executable name="AgilePlanner" type="1" iconSet="true" iconFile="" executableDir="." redirectStderr="true" stderrFile="error.log" redirectStdout="false" stdoutFile="output.log" failOnStderrOutput="true" executableMode="1" changeWorkingDirectory="true" workingDirectory="." singleInstance="false" serviceStartType="2" serviceDependencies="" serviceDescription="" jreLocation="">
+        <versionInfo include="true" fileVersion="%BUILDVERSION%" companyName="" fileDescription="AgilePlanner Executable" legalCopyright="ASE License" productVersion="" internalName="AgilePlanner" />
+      </executable>
+      <splashScreen show="true" autoOff="true" alwaysOnTop="true" width="523" height="402" bitmapFile="./splash.bmp">
+        <text>
+          <statusLine x="20" y="20" text="" font="Arial" fontSize="8" fontColor="0,0,0" fontWeight="500" />
+          <versionLine x="20" y="115" text="v%BUILDVERSION%" font="Arial" fontSize="8" fontColor="0,0,0" fontWeight="500" />
+        </text>
+      </splashScreen>
+      <java mainClass="org.eclipse.equinox.launcher.Main" vmParameters="" arguments="" allowVMPassthroughParameters="true" minVersion="" maxVersion="" preferredVM="" allowBetaVM="false" jdkOnly="false">
+        <searchSequence>
+          <registry />
+          <envVar name="JAVA_HOME" />
+          <envVar name="JDK_HOME" />
+        </searchSequence>
+        <classPath>
+          <scanDirectory location="plugins" failOnError="false" />
+        </classPath>
+        <nativeLibraryDirectories />
+      </java>
+      <includedFiles />
+    </launcher>
+  </launchers>
+  <installerGui installerType="1" runUninstallerOnUpdate="false" addOnAppId="" suggestPreviousLocations="true" allowUnattendedInstall="false" useCustomHeaderImage="false" customHeaderImage="" customSize="false" customWidth="500" customHeight="390">
+    <customCode preAction="false" preActionClass="" postAction="false" postActionClass="" preUninstallAction="false" preUninstallActionClass="" postUninstallAction="false" postUninstallActionClass="" initHandler="false" initHandlerClass="" directoryValidator="false" directoryValidatorClass="" installationHandler="false" installationHandlerClass="" />
+    <standardScreens>
+      <screen id="welcome" enabled="true" useCustomBanner="false" bannerImageFile="" background="255,255,255" />
+      <screen id="license" enabled="false" file="" />
+      <screen id="location" enabled="true" showSpace="true" suggestAppDir="true" />
+      <screen id="components" enabled="true" allSelected="true" firstMandatory="true">
+        <selectedComponents />
+        <mandatoryComponents />
+      </screen>
+      <screen id="programGroup" enabled="true" />
+      <screen id="fileAssociations" enabled="true">
+        <associations />
+      </screen>
+      <screen id="services" enabled="true" allSelected="true">
+        <selectedServiceLaunchers />
+      </screen>
+      <screen id="additionalTasks" enabled="true" customTasksPlacement="1">
+        <customTasks />
+      </screen>
+      <screen id="preInfo" enabled="false" file="" />
+      <screen id="install" enabled="true" />
+      <screen id="postInfo" enabled="false" file="" />
+      <screen id="finished" enabled="true" useCustomBanner="false" bannerImageFile="" background="255,255,255" />
+    </standardScreens>
+    <customScreens />
+  </installerGui>
+  <mediaSets>
+    <win32 name="Windows" id="3" mediaFileName="" installDir="AgilePlanner" allLaunchers="false" includedJRE="windows-x86-1.6.0_03" manualJREEntry="false" bundleType="1" jreURL="" jreFtpURL="" jreShared="false" customInstallBaseDir="" allowUserStartAfterFinish="true" launchExecutableId="6" createUninstallIcon="true" overrideLicenseFile="false" licenseFile="" overridePreInformationFile="false" preInformationFile="" overridePostInformationFile="false" postInformationFile="" adminRequired="false" languageID="en" modeDesktopIcon="1" desktopLauncherId="" programGroup="AgilePlanner" allowUserDisableStartMenuCreation="false" reboot="false" rebootUninstaller="false" modeQuickLaunchIon="1">
+      <selectedLaunchers>
+        <launcher id="6" />
+      </selectedLaunchers>
+      <messageSet language="English" />
+      <exclude />
+      <variables />
+      <excludedScreenIds />
+      <additionalStartMenuEntries />
+    </win32>
+    <macos name="Mac OS X Single Bundle" id="11" mediaFileName="" installDir="AgilePlanner" allLaunchers="false" customInstallBaseDir="" allowUserStartAfterFinish="true" launchExecutableId="6" createUninstallIcon="true" overrideLicenseFile="false" licenseFile="" overridePreInformationFile="false" preInformationFile="" overridePostInformationFile="false" postInformationFile="" adminRequired="false" languageID="en" modeDesktopIcon="1" desktopLauncherId="">
+      <selectedLaunchers>
+        <launcher id="6" />
+      </selectedLaunchers>
+      <messageSet language="English" />
+      <exclude>
+        <entry location="AgilePlanner2.0.0.exe" launcher="false" />
+        <entry location="startup.jar" launcher="false" />
+      </exclude>
+      <variables />
+      <excludedScreenIds />
+    </macos>
+  </mediaSets>
+  <buildIds buildAll="false">
+    <mediaSet refId="3" />
+  </buildIds>
+</install4j>
+

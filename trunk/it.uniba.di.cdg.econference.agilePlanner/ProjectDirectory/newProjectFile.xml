@@ -1,0 +1,4 @@
+<Project ID="1" Name="newProjectFile">
+  <Backlog Height="0" Width="0" ID="10" Name="Project Backlog" Parent="1" XLocation="0" YLocation="0"/>
+  <Legend aqua="aqua3" blue="Feature" gray="gray1" green="Rally" khaki="khaki1" peach="peach2" pink="pink1" red="Bug" white="Spike" yellow="yellow1"/>
+</Project>

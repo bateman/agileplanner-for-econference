@@ -1,0 +1,3 @@
+<Backlog Height="400" Width="400" ID="0" Name="Project Backlog" Parent="0" XLocation="0" YLocation="0">
+  <StoryCard Actual="0.0" BestCase="0.0" CardOwner="Owner" Color="white" CurrentSideUp="0" Description="description" Height="125" ID="0" MostLikely="0.0" Name="Default StoryCard" Parent="0" RotationAngle="0.0" Status="Defined" TestText="" TestURL="http://localhost/?something_else_is_new" Width="250" WorstCase="0.0" XLocation="0" YLocation="0" RallyID="false" FitID="TestStorage.DefaultTest"/>
+</Backlog>

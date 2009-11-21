@@ -1,0 +1,20 @@
+<testResult>
+  <executedTest>TestStorage.FileReadTest</executedTest>
+  <startTime class="sql-timestamp">2008-04-09 11:15:21.333</startTime>
+  <endTime class="sql-timestamp">2008-04-09 11:15:21.958</endTime>
+  <testOutput>&lt;table border=&quot;1&quot; cellspacing=&quot;0&quot;&gt;
+&lt;tr&gt;&lt;td colspan=&quot;2&quot;&gt;ca.ucalgary.cpsc.agilePlanner.test.util.FileAcceptance&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;file&lt;/td&gt;
+&lt;td&gt;readAll()&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;TestData/FileFixtures/aFile.txt&lt;/td&gt;
+&lt;td style=&quot;background: red;&quot;&gt;hello world &lt;span class=&quot;fit_label&quot;&gt;expected&lt;/span&gt;&lt;hr&gt;null &lt;span class=&quot;fit_label&quot;&gt;actual&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+</testOutput>
+  <numWrong>1</numWrong>
+  <numRight>0</numRight>
+  <numIgnored>0</numIgnored>
+  <numExceptions>0</numExceptions>
+</testResult>

@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="AgilePlanner" default="dependency" basedir=".">
+	
+	<taskdef name="install4j"
+		classname="com.install4j.Install4JTask"
+		classpath="/opt/install4j/bin/ant.jar"/>
+	
+	<!-- creation of jar and zip will be targeted by junit.tests, in case they have been successful-->
+	<target name="anthill-zeus" depends="init" description="Continuous integration task for Anthill">
+		<antcall target="clean"/>
+		<antcall target="build"/>
+		<antcall target="junit.tests"/>
+		<antcall target="clean"/>
+	</target>
+	
+	<!-- target called by anthill-dependency groups -->
+	<target name="dependency" depends="anthill-zeus" />
+	
+	
+	<!-- declares the used folders -->
+	<target name="init">
+		<!--<property name="build.result.folder" value="${basedir}"/>-->
+		<property name="temp.server" value="${basedir}/temp.server"/>
+		<property name="product.version" value="2.4.1" />
+		<!--<property name="temp.folder" value="${basedir}/temp.folder"/>-->
+		<property name="temp.destination" value="${basedir}/temp.destination"/>
+		<property name="product.destination" value="/opt/apache-5.5.23/webapps/AgilePlanner"/> <!--/opt/apache-5.5.23/webapps/AgilePlanner-->
+		<property name="zip.destination" value="${product.destination}/AgilePlanner_2.4.zip"/>
+		<property name="server.destination" value="${product.destination}/distributed-persister.jar"/>
+		<property name="gathered.src" value="${basedir}/gathered.src"/>
+		<property name="bin" value="${basedir}/ant.bin"/>
+	</target>
+
+
+	<!-- commiles everything -->
+	<target name="build" depends="init" description="compile persister package and tests">
+	
+		<mkdir dir = "${gathered.src}"/>
+		<mkdir dir = "${bin}"/>
+		
+		<copy todir="${gathered.src}">
+			<fileset dir="src" />
+			<fileset dir="InputFramework/src" /> 
+		</copy>
+				
+		<javac srcdir="${gathered.src}"  destdir="${bin}" source="1.6" target="1.6" nowarn="true" debug="on" debuglevel="lines,vars,source" > <!--source="1.6" target="1.6"-->
+			<classpath>
+				<fileset dir="lib">
+					<include name="*.jar" />
+				</fileset>
+				<fileset dir="DependentBuildSourcesAP" >
+					<include name="**/*.jar" />
+				</fileset>
+				<!--<fileset dir="../.">
+					<include name="*.jar" />
+				</fileset>-->
+				<!--<pathelement location="${bin}" />-->				
+			</classpath>
+		</javac>
+		
+	</target>
+
+	
+	<!-- runs the junit-tests, if at least one fails, the whole build fails and zip and jar won't be created. -->
+	<target name="junit.tests" depends="init">
+		
+		<junit printsummary="withOutAndErr" filtertrace="off" haltonfailure="false" failureproperty="BUILD_FAILED"> 
+						
+			<classpath>
+				<pathelement location="${bin}" />
+				<pathelement path = " "/> 
+				<fileset dir="lib" includes="*.jar" />
+				<fileset dir="DependentBuildSourcesAP">
+					<include name="**/*.jar"/>
+				</fileset>
+				<!--<fileset dir="../." includes="fitnesse.jar" />-->
+			</classpath>
+			
+			<formatter type="plain" usefile="no" />
+			
+			<batchtest fork="true">
+				<fileset dir="${bin}">
+					<include name="**/test/planner/UIModel/CardModelTest.class" />
+					<include name="**/test/planner/UIModel/ModelTests.class" />
+					<include name="**/test/planner/AsynchronousDistributedPersisterTest.class" />
+					<include name="**/test/planner/AsynchronousPersisterTest.class" />
+					<include name="**/test/planner/AuthenticatorTest.class" />
+					<include name="**/test/planner/NetworkCommunicationTest.class" />
+					<exclude name="**/test/planner/PersisterRallyTest.class" />
+					<include name="**/test/planner/SynchronousPersisterTest.class" />
+					<include name="**/test/planner/WebServiceTest.class" />
+					<include name="**/test/planner/fitintegration/TestPluginInformation.class" />
+				</fileset>
+			
+			</batchtest>
+		</junit>
+		
+			
+		<antcall target="zip.server" />
+		<antcall target="zip.product" />
+		<antcall target="install4j" />		
+		<fail message="At least one test failed." if="BUILD_FAILED" />
+	</target>
+	
+	
+	<!-- creates the server jar file -->
+	<target name="zip.server" depends="jar.server" unless="BUILD_FAILED">
+	<!--	<copy todir="${temp.server}/persister">
+			<fileset dir="${bin}/persister">
+				<exclude name="datachangeimplement/*"/>
+			</fileset>
+		</copy>
+		
+		<mkdir dir="${temp.server}/AgilePlanner"/>
+		<jar destfile="${temp.server}/AgilePlanner/distributed-planner.jar" basedir="${temp.server}">
+		    <manifest>
+		    	<attribute name="Main-Class" value="persister.distributed.ServerCommunicator"/>
+		    	<attribute name="Class-Path" value="lib/rallyservice.jar lib/sbsdk.jar lib/axis.jar
+		    										lib/jaxrpc.jar lib/axis-ant.jar
+		    										lib/axis-shema.jar lib/commons-discovery-0.2.jar
+		    										lib/commons-logging-1.0.4.jar lib/log4j-1.2.8.jar
+		    										lib/saaj.jar lib/wsdl4j-1.5.1.jar"/>
+		    </manifest>
+		</jar> -->
+		<copy todir="${temp.server}/AgilePlanner/lib">
+			<fileset dir="lib" />
+		</copy>
+		<delete dir="${temp.server}/persister" />
+	<!--<mkdir dir="${temp.server}/FitNesse"/>
+		<copy todir="${temp.server}/FitNesse/FitNesseRoot">
+			<fileset dir="../fitNesse/FitNesseRoot" />
+   		</copy>
+		<copy todir="${temp.server}/FitNesse">
+			<fileset dir="../." >
+				<include name="fitnesse.jar"/>
+			</fileset>
+		</copy> -->
+		<zip destfile="${product.destination}/APServer.zip" basedir="${temp.server}" filesonly="true" whenempty="skip" update="false"/>
+	</target>
+	
+	<!-- creates the server jar file -->
+	<target name="jar.server" depends="init,build" unless="BUILD_FAILED" description="creates the server jar file only">
+		<copy todir="${temp.server}/persister">
+			<fileset dir="${bin}/persister">
+				<!--<exclude name="datachangeimplement/*"/>-->
+			</fileset>
+		</copy>
+		
+		<mkdir dir="${temp.server}/AgilePlanner"/>
+		<jar destfile="${temp.server}/AgilePlanner/distributed-persister.jar" basedir="${temp.server}">
+		    <manifest>
+		    	<attribute name="Main-Class" value="persister.distributed.ServerCommunicator"/>
+		    	<attribute name="Class-Path" value="lib/rallyservice.jar
+		    										lib/sbsdk.jar lib/axis.jar
+		    										lib/jaxrpc.jar lib/axis-ant.jar
+		    										lib/axis-shema.jar lib/commons-discovery-0.2.jar
+		    										lib/commons-logging-1.0.4.jar lib/log4j-1.2.8.jar
+		    										lib/saaj.jar lib/wsdl4j-1.5.1.jar"/>
+		    </manifest>
+		</jar>
+		<copy todir="${basedir}/Server">
+			<fileset dir="${temp.server}/AgilePlanner/" >
+				<include name="*.jar"/>
+			</fileset>
+		</copy>
+	</target>
+	
+	
+	<!-- collects class files for creating the productzip -->
+	<target name="gather.bin.parts" depends="init" if="destination.temp.folder">
+		<mkdir dir="${destination.temp.folder}/ca.ucalgary.cpsc.agilePlanner_2.4.1"/>
+		<copy todir="${destination.temp.folder}/ca.ucalgary.cpsc.agilePlanner_2.4.1" failonerror="true" overwrite="false">
+			<fileset dir="${basedir}" includes="plugin.xml,${bin},config.xml,META-INF/,build.properties,Icons/,AgilePlannerWithPersister.product,lib/" />
+		</copy>
+		<move todir="${destination.temp.folder}/ca.ucalgary.cpsc.agilePlanner_2.4.1/bin">
+			<fileset dir="${bin}"/>
+		</move>
+	</target>
+	
+	<!-- creates the zip file -->
+	<target name="zip.product" depends="init"  unless="BUILD_FAILED" description="Create a zip containing all the elements for the plug-in: AgilePlanner.">
+
+		<copy todir="${temp.destination}">
+			<fileset dir="DependentBuildSourcesAP" />		   
+  	 	</copy>
+		<antcall target="gather.bin.parts">
+			<param name="destination.temp.folder" value="${temp.destination}/plugins"/>
+		</antcall>
+		<!-- gets the plugin created by fitclipse -->
+		<!--<copy todir="${temp.destination}/plugins/ca.ucalgary.cpsc.ebe.fitClipse_1.0.0/">
+			<fileset dir="../ca.ucalgary.cpsc.ebe.fitClipse_1.0.0"/>
+		</copy>-->
+		
+		<zip destfile="${zip.destination}" basedir="${temp.destination}" filesonly="true" whenempty="skip" update="false"/>
+	</target>
+	
+	<!-- ================================= 
+          target: install4j.prepare              
+         ================================= -->
+    <target name="install4j.prepare" description="--> prepares the folder for building the install file">
+        <delete file="${temp.destination}/AgilePlanner2.0.0.exe" />
+    	<delete file="${temp.destination}/startup.jar" />
+    </target>
+
+
+	<!-- ================================= 
+          target: install4j           
+         ================================= -->
+	<target name="install4j" depends="install4j.prepare,init" unless="BUILD_FAILED">
+		<install4j projectfile="AgilePlanner.install4j" destination="${product.destination}/" >
+			<variable name="BUILDVERSION" value="${version}"/>
+			<variable name="PRODUCTVERSION" value="${product.version}" />
+			<variable name="FILEFOLDER" value="${temp.destination}"/>
+		</install4j>
+	</target>
+	
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: clean         
+          cleans everything up             
+         - - - - - - - - - - - - - - - - - -->
+    <target name="clean" depends="init">
+		<delete dir="${temp.destination}"/>
+	<!--	<delete dir = "${temp.folder}"/> -->
+    	<delete dir="${bin}"/>
+    	<delete dir="${gathered.src}"/>
+    	<delete dir="${temp.server}"/>
+    </target>
+
+	
+</project>

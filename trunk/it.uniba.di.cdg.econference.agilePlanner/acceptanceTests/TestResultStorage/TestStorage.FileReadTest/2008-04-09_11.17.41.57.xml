@@ -1,0 +1,46 @@
+<testResult>
+  <executedTest>TestStorage.FileReadTest</executedTest>
+  <startTime class="sql-timestamp">2008-04-09 11:17:41.57</startTime>
+  <endTime class="sql-timestamp">2008-04-09 11:17:42.273</endTime>
+  <testOutput>&lt;table border=&quot;1&quot; cellspacing=&quot;0&quot;&gt;
+&lt;tr&gt;&lt;td colspan=&quot;2&quot;&gt;ca.ucalgary.cpsc.agilePlanner.test.util.FileAcceptance&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;file&lt;/td&gt;
+&lt;td&gt;readAll()&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;TestData/FileFixtures/aFile.txt&lt;/td&gt;
+&lt;td style=&quot;background: yellow;&quot;&gt;hello world&lt;hr&gt;&lt;pre&gt;&lt;div class=&quot;fit_stacktrace&quot;&gt;java.lang.Exception: -U:\eclipse\TestData\FileFixtures\aFile.txt
+	at ca.ucalgary.cpsc.agilePlanner.test.util.FileAcceptance.readAll(FileAcceptance.java:23)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at fit.TypeAdapter.invoke(TypeAdapter.java:108)
+	at fit.TypeAdapter.get(TypeAdapter.java:95)
+	at fit.Fixture$CellComparator.compareCellToResult(Fixture.java:460)
+	at fit.Fixture$CellComparator.access$1(Fixture.java:453)
+	at fit.Fixture.compareCellToResult(Fixture.java:374)
+	at fit.Fixture.check(Fixture.java:369)
+	at fit.ColumnFixture.check(ColumnFixture.java:63)
+	at fit.Binding$QueryBinding.doCell(Binding.java:186)
+	at fit.ColumnFixture.doCell(ColumnFixture.java:45)
+	at fit.Fixture.doCells(Fixture.java:205)
+	at fit.Fixture.doRow(Fixture.java:196)
+	at fit.ColumnFixture.doRow(ColumnFixture.java:29)
+	at fit.Fixture.doRows(Fixture.java:189)
+	at fit.ColumnFixture.doRows(ColumnFixture.java:20)
+	at fit.Fixture.doTable(Fixture.java:181)
+	at fit.Fixture.interpretTables(Fixture.java:103)
+	at fit.Fixture.doTables(Fixture.java:86)
+	at fit.TestRunner.process(TestRunner.java:67)
+	at fit.TestRunner.run(TestRunner.java:49)
+	at fit.TestRunner.main(TestRunner.java:40)
+&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+</testOutput>
+  <numWrong>0</numWrong>
+  <numRight>0</numRight>
+  <numIgnored>0</numIgnored>
+  <numExceptions>1</numExceptions>
+</testResult>
