@@ -9,7 +9,7 @@
          point="org.eclipse.ui.perspectives">
       <perspective
 	      icon= "Icons/rally_app_icons_16x16.gif"
-          name="AgilePlanner Perspective"
+          name="AgilePlanner"
           class="applicationWorkbench.Perspective"
           id="RallyDemoGEF.perspective"
           fixed ="true">
