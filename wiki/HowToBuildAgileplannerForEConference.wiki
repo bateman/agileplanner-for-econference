@@ -8,6 +8,9 @@
 == Build the eConference 3.x ==
 Follow the [http://code.google.com/p/econference/wiki/HowToBuildEConf instructions] to build eConference 3.x
 
+== Build the econference-planning-poker-plugin 1.x ==
+Follow the [http://code.google.com/p/econference-planning-poker-plugi/wiki/HowToBuildEConf3P instructions] to build econference-planning-poker-plugin 1.x
+
 == Checkout the SVN repository ==
 
 After that, open the _Window | Open perspective_ menu (see Fig. 3)...
