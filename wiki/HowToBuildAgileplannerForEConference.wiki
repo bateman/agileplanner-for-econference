@@ -52,9 +52,12 @@ Select the current product configuration under the Eclipse Application (Fig. 6, 
 <br>
 <br>
 
-From now on, you can just use the tool into eConference 3.x. To start using the tool, you can click on icon button (Fig. 7).
+From now on, you can just use the tool into eConference 3.x. To start using the tool, you can just click on icon button of eConference perspective(Fig. 7).
 
-
+<p align=center>http://econference.googlecode.com/svn/wiki/img/econfpersp.JPG <br>
+<p align=center>*Figure 6. eConference perspective with AgilePlanner plug-in*</p>
+<br>
+<br>
 == Building the workspace ==
 Once either the checkout or the import is complete, you can build your workspace, but just make sure that the Java compiler compliance level is set to 1.6 (see Fig. 8)
 
