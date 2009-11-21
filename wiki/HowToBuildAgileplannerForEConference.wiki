@@ -46,6 +46,16 @@ Once check-out is finished, right click on {{{it.uniba.di.cdg.planningpoker.boot
 
 You will see this view:
 
+Select the current product configuration under the Eclipse Application (Fig. 6, A) and shift on _Plug-ins tab_ (B); then select {{{ca.ucalgary.cpsc.agilePlanner (2.5.0)}}} plug-in (C). Now press the Validate Plug-in Set button (D). If an error message pops up, then close it and press the Add Required Plug-ins button (E); otherwise here you are already ok (and the problem should be somewhere else :S).
+
+<p align=center>http://econference.googlecode.com/svn/wiki/img/runconfAP.JPG <br>
+<p align=center>*Figure 6. Validate the plug-ins set*</p>
+<br>
+<br>
+
+From now on, you can just use the tool into eConference 3.x. To start using the tool, you can click on icon button (Fig. 7).
+
+
 == Building the workspace ==
 Once either the checkout or the import is complete, you can build your workspace, but just make sure that the Java compiler compliance level is set to 1.6 (see Fig. 8)
 
