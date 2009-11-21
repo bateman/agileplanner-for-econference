@@ -44,7 +44,6 @@ A 2-steps wizard will guide you. You are going to checkout each plugin as a sepa
 
 Once check-out is finished, right click on {{{it.uniba.di.cdg.planningpoker.boot.product}}} file in {{{it.uniba.di.cdg.planningpoker}}} package, and select _Run_ | _Run configurations..._. to include *agileplanner-for-econference* plug-in into eConference product.
 
-You will see this view:
 
 Select the current product configuration under the Eclipse Application (Fig. 6, A) and shift on _Plug-ins tab_ (B); then select {{{ca.ucalgary.cpsc.agilePlanner (2.5.0)}}} plug-in (C). Now press the Validate Plug-in Set button (D). If an error message pops up, then close it and press the Add Required Plug-ins button (E); otherwise here you are already ok (and the problem should be somewhere else :S).
 
