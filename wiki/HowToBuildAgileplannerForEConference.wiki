@@ -55,6 +55,32 @@ Select the current product configuration under the Eclipse Application (Fig. 6, 
 From now on, you can just use the tool into eConference 3.x. To start using the tool, you can just click on icon button of eConference perspective(Fig. 7).
 
 <p align=center>http://econference.googlecode.com/svn/wiki/img/econfpersp.JPG <br>
-<p align=center>*Figure 6. eConference perspective with AgilePlanner plug-in*</p>
+<p align=center>*Figure 7. eConference perspective with AgilePlanner plug-in*</p>
 <br>
 <br>
+
+
+== How to export plug-in ==
+
+In order to use this plug-in out of the environment of eConference (e.g., as pure Eclipse plug-in), you can export product in a .jar file. To do this, you can right click on {{{AgilePlannerWithPersister.product}}} file in {{{it.uniba.di.cdg.agilePlanner}}} package e then select _Export_ (Fig. 8):
+
+<p align=center>http://econference.googlecode.com/svn/wiki/img/exp1AP.JPG <br>
+<p align=center>*Figure 8. Export AgilePlannerWithPersister.product*</p>
+<br>
+<br>
+
+A 2-steps wizard will guide you. In the Export frame, select _Plug-in Development | Deployable plug-ins and fragments_, then click _Next_ (Fig. 9):
+
+<p align=center>http://econference.googlecode.com/svn/wiki/img/exp2AP.JPG <br>
+<p align=center>*Figure 9. Export plug-in as deployable plug-in*</p>
+<br>
+<br>
+
+Select {{{ca.ucalgary.cpsc.agilePlanner (2.5.0)}}} from Avaiable Plug-ins and Fragments frame (Fig. 10, A), then enter destination directory you want to save .jar file (B). Click _Finish_:
+
+<p align=center>http://econference.googlecode.com/svn/wiki/img/exp3AP.JPG <br>
+<p align=center>*Figure 10. Select plug-in and enter destination directory*</p>
+<br>
+<br>
+
+At the end of export process, you will have .jar file in your destination directory.
