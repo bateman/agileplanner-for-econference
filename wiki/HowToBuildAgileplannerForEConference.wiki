@@ -31,7 +31,7 @@ After switching to the _SVN Repository Exploring_ perspective, add a new reposit
 <br>
 <br>
 
-Now, enter {{{http://econference-planning-poker-plugin.googlecode.com/svn/trunk/}}} in the url field of the wizard and click the _Finish_ button. Accept the Digital Certificate when prompted.
+Now, enter {{{http://agileplanner-for-econference.googlecode.com/svn/trunk/}}} in the url field of the wizard and click the _Finish_ button. Accept the Digital Certificate when prompted.
 <br>
 <br>
 
