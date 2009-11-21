@@ -42,6 +42,10 @@ Once Subclipse has finished fetching data from the new repository, you will see 
 
 A 2-steps wizard will guide you. You are going to checkout each plugin as a separate project into your workspace. It could take a while, so be patient.
 
+Once check-out is finished, right click on {{{it.uniba.di.cdg.planningpoker.boot.product}}} file in {{{it.uniba.di.cdg.planningpoker}}} package, and select _Run_ | _Run configurations..._. to include AgilePlanner-for-eConference plug-in into eConference product.
+
+You will see this view:
+
 == Building the workspace ==
 Once either the checkout or the import is complete, you can build your workspace, but just make sure that the Java compiler compliance level is set to 1.6 (see Fig. 8)
 
