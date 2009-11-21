@@ -58,11 +58,3 @@ From now on, you can just use the tool into eConference 3.x. To start using the 
 <p align=center>*Figure 6. eConference perspective with AgilePlanner plug-in*</p>
 <br>
 <br>
-== Building the workspace ==
-Once either the checkout or the import is complete, you can build your workspace, but just make sure that the Java compiler compliance level is set to 1.6 (see Fig. 8)
-
-
-<p align=center>http://econference.googlecode.com/svn/wiki/img/javasettings.JPG <br>
-<p align=center>*Figure 8. Set the Java Compiler Compliance Level to 1.6*</p>
-<br>
-<br>
