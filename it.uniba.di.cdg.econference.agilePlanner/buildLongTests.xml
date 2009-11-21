@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="AgilePlanner" default="test" basedir=".">
+	
+	<taskdef name="install4j"
+		classname="com.install4j.Install4JTask"
+		classpath="C:/Program Files/install4j/bin/ant.jar"/>
+	
+
+	<!-- declares the used folders -->
+	<property name="bin" value="${basedir}/bin"/>
+	<property name="build" value="build"/>
+	<property name="src" value="${basedir}/src"/>
+	<property name="test" value="${basedir}/test"/>
+	<property name="gathered.src" value="${basedir}/gathered.src"/>
+	<property name="junitReports" value="${basedir}/junitReports"/>
+	<property name="temp.server" value="${basedir}/temp.server"/>
+	<property name="temp.destination" value="${basedir}/temp.destination"/>
+	<property name="version" value="0" />
+	<property name="product.version" value="2.4.1" />
+	<property name="product.destination" value="C:/Program Files/Apache Software Foundation/Tomcat 5.5/webapps/AgilePlanner/current/"/>
+	<property name="zip.destination" value="${product.destination}/AgilePlanner_2.4.zip"/>
+	<property name="server.destination" value="${product.destination}/distributed-persister.jar"/>
+	<property name="coverageReports" value="${basedir}/coverage/html"/>
+	<property name="coverageReportsPublishingDir" value="C:\Program Files\Apache Software Foundation\Tomcat 5.5\webapps\AgilePlanner\code_coverage"/>
+	<property name="serialized_coverage_report" value="${basedir}/coverage/cobertura.ser" />
+	<property name="binary_source_package_root" value="${bin}" />
+	<property name="jar.location" value="${product.destination}/ca.ucalgary.cpsc.agilePlanner_classes.jar" />
+	<property name="jar.plugin.location" value="${product.destination}/ca.ucalgary.cpsc.agilePlanner.jar" />
+	<path id="path.lib">
+		<fileset dir="lib">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+	<path id="path.dependencies">
+		<fileset dir="DependentBuildSourcesAP" >
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+	<target name="clean">
+		<delete dir="${temp.server}"/>
+		<mkdir dir="${temp.server}"/>
+		<delete dir="${temp.destination}"/>
+		<delete dir="${bin}"/>
+		<mkdir dir="${bin}"/>
+		<delete dir="${junitReports}"/>
+		<mkdir dir="${junitReports}"/>
+		<delete dir="${gathered.src}"/>
+		<delete dir="${coverageReports}"/>
+		<delete dir="${serialized_coverage_report}"/>
+	</target>
+
+	<target name="build" depends="clean" description="compile persister package and tests">
+		<mkdir dir="${bin}"/>
+		<javac srcdir="${src}" compiler="javac1.5" destdir="${bin}" source="1.5" target="1.5" nowarn="true" debug="on" debuglevel="lines,vars,source" > <!--source="1.6" target="1.6"-->
+			<classpath>
+				<path refid="path.lib"/>
+				<path refid="path.dependencies"/>
+			</classpath>
+		</javac>
+		
+	</target>
+	<target name="build.tests">
+		<javac srcdir="${test}" compiler="javac1.6" destdir="${bin}" source="1.6" target="1.6" nowarn="true" debug="on" debuglevel="lines,vars,source" > <!--source="1.6" target="1.6"-->
+			<classpath>
+				<path refid="path.lib"/>
+				<path refid="path.dependencies"/>
+				<pathelement path="${bin}"/>
+			</classpath>
+		</javac>
+	</target>
+	<target name="test.units">
+		
+		<junit printsummary="withOutAndErr" filtertrace="off" haltonfailure="false" failureproperty="BUILD_FAILED"> 
+			<classpath>
+				<path refid="path.lib"/>
+				<path refid="path.dependencies"/>
+				<pathelement location="  " />
+				<pathelement location="${bin}" />
+			</classpath>
+			
+			<!--formatter type="plain" /-->
+			<formatter type="plain" usefile="false" />
+						
+			<batchtest todir="${junitReports}"  fork="true">
+				<fileset dir="${bin}">
+					<include name="**/test/LongTests.class" />
+				</fileset>
+			</batchtest>
+		</junit>
+			
+		<fail message="At least one test failed." if="BUILD_FAILED" />
+	</target>
+	<target name="test.run">
+		<antcall target="build.tests"/>
+		<antcall target="test.units"/>
+	</target>
+	<target name="test">
+		<antcall target="build"/>
+		<antcall target="test.run"/>
+	</target>
+
+	
+	
+</project>

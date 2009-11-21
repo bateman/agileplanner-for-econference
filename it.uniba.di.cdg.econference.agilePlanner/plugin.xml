@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin> 
+
+	<!-- APPLICATION -->
+   	<extension
+   		 id = "perspective"
+   		 name= "AgilePlanner"
+         point="org.eclipse.ui.perspectives">
+      <perspective
+	      icon= "Icons/rally_app_icons_16x16.gif"
+          name="AgilePlanner Perspective"
+          class="applicationWorkbench.Perspective"
+          id="RallyDemoGEF.perspective"
+          fixed ="true">
+      </perspective>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="applicationWorkbench.Editor"
+            contributorClass="applicationWorkbench.ApplicationActionBarContributor"
+            icon = "Icons/rally_app_icons_16x16.gif"
+            extensions="rde"
+            id="RallyDemoGEF.Editor"
+            name="AgilePlanner"
+            />
+   </extension>
+   
+   	<extension
+         id="application"
+         name="AgilePlanner Application"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run class="applicationWorkbench.Application"/>
+      </application>
+   	</extension>
+   
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="ca.ucalgary.cpsc.agilePlanner.application"
+            description="Iteration Planner"
+            name="AgilePlanner_2.4.1">
+         <property
+               name="aboutText"
+               value="This is the about Dialog box!"/>
+         <property
+               name="windowImages"
+               value="Icons/rally_app_icons_16x16.gif,Icons/rally_app_icons_32x32.gif,Icons/rally_app_icons_48x48.gif,Icons/rally_app_icons_48x48.gif"/>
+         <property
+               name="startupProgressRect"
+               value="0,1,100,10"/>
+         <property
+               name="appName"
+               value="AgilePlanner_2.4.1">
+         </property>
+         <property
+               name="preferenceCustomization"
+               value="plugin_customization.ini">
+         </property>
+      </product>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            objectClass="org.eclipse.core.resources.IFile"
+            nameFilter="*.*"
+            id="AgilePlanner">
+         <action
+               label="Print"
+               class="applicationWorkbench.actions.PlannerPrintAction"
+               menubarPath="additions"
+               enablesFor="1"
+               id="rallydemogef.print">
+  		</action>
+   	</objectContribution>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="applicationWorkbench.actions"
+            label="AgilePlanner actionSet"
+            visible="true">
+         <action
+               class="applicationWorkbench.actions.OpenProjectActionDelegate"
+               icon="Icons/rally_app_icons_16x16.png"
+               id="applicationWorkbench.actions.openProject"
+               label="Agile Planner"
+               state="false"
+               toolbarPath="AgilePlanner/ap">
+         </action>
+         <!--
+         <action
+               class="applicationWorkbench.actions.CreateNewProjectActionDelegate"
+               icon="Icons/icon_agileplanner_new.gif"
+               id="applicationWorkbench.actions.createNewProject"
+               label="Create new project"
+               style="push"
+               toolbarPath="AgilePlanner/ap"
+               tooltip="Create a new project and connect to the persister.">
+         </action>-->
+         <!--<action
+               class="applicationWorkbench.actions.SearchActionDelegate"
+               icon="Icons/icon_find.gif"
+               id="applicationWorkbench.actions.search"
+               label="Search"
+               toolbarPath="AgilePlanner/ap2"
+               tooltip="Search.">
+         </action>-->
+         <!--<action
+               class="applicationWorkbench.actions.ChangeColorPulldownDelegate"
+               icon="Icons/ChangeBG.gif"
+               id="applicationWorkbench.actions.chooseColorPulldown"
+               label="Color StoryCards"
+               style="pulldown"
+               toolbarPath="AgilePlanner/ap2"
+               tooltip="Change the color of a StoryCard.">
+         </action>-->
+      </actionSet>
+   </extension>
+   
+   	<!-- PERSPECTIVE -->
+   
+   
+   <!-- EDITOR -->
+   
+   
+   <!-- Product -->
+
+</plugin>

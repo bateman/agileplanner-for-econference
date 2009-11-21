@@ -1,0 +1,6 @@
+<fitclipse>
+  <testStorage>AgilePlanner\acceptanceTests\TestStorage</testStorage>
+  <testResultStorage>AgilePlanner\acceptanceTests\TestResultStorage</testResultStorage>
+  <fitHTMLSrc>AgilePlanner\fitHTML\Src</fitHTMLSrc>
+  <fitHTMLRes>AgilePlanner\fitHTML\Res</fitHTMLRes>
+</fitclipse>

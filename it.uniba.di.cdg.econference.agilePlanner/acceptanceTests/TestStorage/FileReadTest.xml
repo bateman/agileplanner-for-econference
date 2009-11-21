@@ -1,0 +1,10 @@
+<test>
+  <name>FileReadTest</name>
+  <testDefinition>|!-ca.ucalgary.cpsc.agilePlanner.test.util.FileAcceptance-!|&#x0D;
+|file                                              |    readAll()|&#x0D;
+|../workspace/AgilePlanner/TestData/FileFixtures/aFile.txt  |Hello World|&#x0D;
+</testDefinition>
+  <fixtures>
+    <fixture>ca.ucalgary.cpsc.agilePlanner.test.util.FileAcceptance</fixture>
+  </fixtures>
+</test>

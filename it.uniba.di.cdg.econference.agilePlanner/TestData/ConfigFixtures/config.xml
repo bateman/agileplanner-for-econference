@@ -1,0 +1,8 @@
+<persister.factory.Settings>
+  <mouseMessageOut>false</mouseMessageOut>
+  <projectName>ASE</projectName>
+  <estimate__bestCase>false</estimate__bestCase>
+  <estimate__worstCase>false</estimate__worstCase>
+  <estimate__remaining>false</estimate__remaining>
+  <port>0</port>
+</persister.factory.Settings>

@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="AgilePlanner" default="test.cover.and.package" basedir=".">
+	
+	
+
+	<!-- declares the used folders -->
+	<property name="bin" value="${basedir}/bin"/>
+	<property name="build" value="build"/>
+	<property name="src" value="${basedir}/src"/>
+	<property name="test" value="${basedir}/test"/>
+	<property name="junitReports" value="${basedir}/junitReports"/>
+	<property name="temp.server" value="${basedir}/temp.server"/>
+		
+	<path id="path.lib">
+		<fileset dir="lib">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+	<path id="path.dependencies">
+		<fileset dir="DependentBuildSourcesAP" >
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+		
+	<property name="gathered.src" value="${basedir}/gathered.src"/>
+	<property name="temp.destination" value="${basedir}/temp.destination"/>
+	<property name="product.version" value="2.4.1" />
+	<property name="product.destination" value="C:/Program Files/Apache Software Foundation/Tomcat 5.5/webapps/AgilePlanner/current/"/>
+	<property name="zip.destination" value="${product.destination}/AgilePlanner_2.4.zip"/>
+	<property name="server.destination" value="${product.destination}/distributed-persister.jar"/>
+	<property name="coverageReports" value="${basedir}/coverage/html"/>
+	<property name="coverageReportsPublishingDir" value="C:\Program Files\Apache Software Foundation\Tomcat 5.5\webapps\AgilePlanner\code_coverage"/>
+	<property name="serialized_coverage_report" value="${basedir}/coverage/cobertura.ser" />
+	<property name="binary_source_package_root" value="${bin}" />
+	<property name="jar.location" value="${product.destination}/ca.ucalgary.cpsc.agilePlanner_classes.jar" />
+	<property name="jar.plugin.location" value="${product.destination}/ca.ucalgary.cpsc.agilePlanner.jar" />
+	<property environment="env"/>
+	
+	<path id="cobertura.classpath">
+		<fileset dir="./lib/">
+			<include name="log4j-1.2.15.jar" />
+			<include name="jakarta-oro-2.0.8.jar" />
+			<include name="asm-2.2.1.jar" />
+			<include name="asm-tree-2.2.1.jar" />
+		</fileset>
+		<fileset file="${env.COBERTURA_HOME}"/>
+	</path>
+
+	<import file="buildSimple.xml"/>
+	
+	<taskdef name="install4j"
+		classname="com.install4j.Install4JTask"
+		classpath="C:/Program Files/install4j/bin/ant.jar"/>
+	<taskdef classpathref="cobertura.classpath" resource="tasks.properties"/>
+
+
+	<target name="coverage.generate">
+		<cobertura-instrument datafile="${serialized_coverage_report}" todir="${build}">
+			<fileset dir="${bin}">
+				<exclude name="**/test/**/*.class" />
+				<exclude name="**/palette/**/*.class" />
+				<exclude name="**/mouse/remote/**/*.class" />
+				<exclude name="**/cards/**/*.class" />
+				<exclude name="**/applicationWorkbench/**/*.class" />
+				<include name="**/cards/model/*.class" />
+				<include name="**/*.class" />
+			</fileset>
+		</cobertura-instrument>
+	</target>
+	<target name="coverage.report">
+		<cobertura-report datafile="${serialized_coverage_report}" srcdir="${src}" destdir="${coverageReports}"/>
+		<copy todir="${coverageReportsPublishingDir}">
+			<fileset dir="${coverageReports}" />
+		</copy>
+	</target>
+	
+	<target name="test.units.covered">
+			
+			<junit printsummary="withOutAndErr" filtertrace="off" haltonfailure="false" failureproperty="BUILD_FAILED"> 
+				<sysproperty key="net.sourceforge.cobertura.datafile" file="${serialized_coverage_report}" />
+				<classpath>
+					<path refid="path.lib"/>
+					<path refid="path.dependencies"/>
+					<pathelement location="${build}" />
+					<pathelement location="  " />
+					<pathelement location="${bin}" />
+					<path refid="cobertura.classpath" />
+				</classpath>
+				
+				<!--formatter type="plain" /-->
+				<formatter type="plain" usefile="false" />
+							
+				<batchtest todir="${junitReports}"  fork="true">
+					<fileset dir="${bin}">
+						<include name="**/test/JUnitTests.class" />
+					</fileset>
+				</batchtest>
+			</junit>
+		
+			<fail message="At least one test failed." if="BUILD_FAILED" />
+	</target>
+	
+	<target name="test.with.coverage">
+		<antcall target="build"/>
+		<antcall target="coverage.generate"/>
+		<antcall target="build.tests"/>
+		<antcall target="test.units.covered"/>
+		<antcall target="coverage.report"/>
+	</target>
+	<target name="test.cover.and.package">
+			<echo message="${env.COBERTURA_HOME}"/>
+			<antcall target="test.with.coverage"/>
+			<antcall target="package" />	
+	</target>
+	
+	<target name="jar.server" unless="BUILD_FAILED" description="creates the server jar file only">
+		<copy todir="${temp.server}/persister">
+			<fileset dir="${binary_source_package_root}/persister"/>
+		</copy>
+		<copy todir="${temp.server}/util">
+			<fileset dir="${binary_source_package_root}/util"/>
+		</copy>
+				
+		<mkdir dir="${temp.server}/AgilePlanner"/>
+		<jar destfile="${temp.server}/AgilePlanner/agilePlannerServer.jar" basedir="${temp.server}" manifest="Server/MANIFEST.MF" />
+		<copy todir="${basedir}/Server">
+			<fileset dir="${temp.server}/AgilePlanner/" >
+				<include name="*.jar"/>
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="jar.plugin"  unless="BUILD_FAILED">
+		<jar destfile="${jar.plugin.location}"  manifest="META-INF/MANIFEST.MF">
+			<fileset dir=".">
+				<include name="bin/**/*"/>
+				<include name="lib/axis*.jar"/>
+				<include name="lib/commons-*.jar"/>
+				<include name="lib/jaxrpc.jar"/>
+				<include name="lib/log4j*.jar"/>
+				<include name="lib/rallyservice.jar"/>
+				<include name="lib/saaj.jar"/>
+				<include name="lib/sbsdk.jar"/>
+				<include name="lib/wsdl4j-*.jar"/>
+				<include name="lib/xpp3_min-*.jar"/>
+				<include name="lib/xstream-*.jar"/>
+				<include name="Icons/**/*"/>
+				<include name="plugin.xml"/>
+				<include name="config.xml"/>
+				<include name="AgilePlannerWithPersister.product"/>
+				<include name="build.properties"/>
+				<include name="splash.bmp"/>
+			</fileset>
+		</jar>
+	</target>
+	
+	<target name="jar.source"  unless="BUILD_FAILED">
+		<jar destfile="${jar.location}">
+			<fileset dir="bin">
+				<include name="**/*"/>
+			</fileset>
+		</jar>
+	</target>
+		
+	<target name="jar" depends="build"  unless="BUILD_FAILED">
+		<antcall target="jar.server"/>
+		<antcall target="jar.plugin"/>
+		<antcall target="jar.source"/>
+	</target>
+	
+	<target name="gather.bin" if="destination.temp.folder">
+		<mkdir dir="${destination.temp.folder}/ca.ucalgary.cpsc.agilePlanner_${product.version}"/>
+		<copy todir="${destination.temp.folder}/ca.ucalgary.cpsc.agilePlanner_${product.version}" failonerror="true" overwrite="false">
+			<fileset dir="${basedir}" includes="plugin.xml,${bin},config.xml,META-INF/,build.properties,Icons/,AgilePlannerWithPersister.product,lib/" />
+		</copy>
+		<move todir="${destination.temp.folder}/ca.ucalgary.cpsc.agilePlanner_${product.version}/bin">
+			<fileset dir="${bin}"/>
+		</move>
+	</target>
+	
+	<target name="zip.product" unless="BUILD_FAILED" description="Create a zip containing all the elements for the plug-in: AgilePlanner.">
+		<copy todir="${temp.destination}">
+			<fileset dir="DependentBuildSourcesAP" />		   
+  	</copy>
+		<antcall target="gather.bin">
+			<param name="destination.temp.folder" value="${temp.destination}/plugins"/>
+		</antcall>
+		<zip destfile="${zip.destination}" basedir="${temp.destination}" filesonly="true" whenempty="skip" update="false"/>
+	</target>
+
+	<target name="zip.server" depends="jar" unless="BUILD_FAILED">
+		<mkdir dir="${temp.server}/AgilePlanner/lib"/>
+		<copy todir="${temp.server}/AgilePlanner/lib">
+			<fileset dir="lib" />
+		</copy>
+		<delete dir="${temp.server}/persister" />
+		<delete dir="${temp.server}/util" />
+		<mkdir dir="C:/Work/AgilePlanner/Server_${version}"/>
+		<copy todir="C:/Work/AgilePlanner/Server_${version}">
+			<fileset dir="${temp.server}/AgilePlanner" />
+			<fileset dir="C:\Work\AgilePlanner" >
+				<include name="startServerDebug.bat" />
+			</fileset>
+		</copy>
+		<copy todir="C:/Work/AgilePlanner/ServerCurrent">
+			<fileset dir="${temp.server}/AgilePlanner" />
+		</copy>
+	  <exec dir="C:\Work\AgilePlanner\ServerCurrent\" executable="cmd" spawn="true">
+	    <arg line="/c C:\Work\AgilePlanner\ServerCurrent\stopAndStartServer.bat"/>
+		</exec>
+		<zip destfile="${product.destination}/AgilePlannerServer.zip" basedir="${temp.server}/AgilePlanner" filesonly="true" whenempty="skip" update="false"/>
+	</target>
+	
+	<!-- collects class files for creating the productzip -->
+	<target name="install4j.prepare" description="--> prepares the folder for building the install file">
+		<delete file="${temp.destination}/AgilePlanner_${product.version}.exe" />
+		<delete file="${temp.destination}/startup.jar" />
+	</target>
+	<target name="install4j" depends="install4j.prepare" unless="BUILD_FAILED">
+		<install4j projectfile="AgilePlanner.install4j" destination="${product.destination}/" >
+			<variable name="BUILDVERSION" value="${version}"/>
+			<variable name="PRODUCTVERSION" value="${product.version}" />
+			<variable name="FILEFOLDER" value="${temp.destination}"/>
+		</install4j>
+	</target>
+	
+	<target name="package">
+		<antcall target="zip.server" />
+		<antcall target="zip.product" />
+		<antcall target="install4j" />		
+	</target>
+	
+</project>
