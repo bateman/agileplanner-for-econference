@@ -70,15 +70,15 @@ public class DataCallback implements PlannerDataChangeListener, PlannerUIChangeL
 
     public DataCallback() {
       
-        this.start = new Timestamp(Date.valueOf("1000-1-1").getTime());
-        this.end = new Timestamp(Date.valueOf("3000-1-1").getTime());
+        this.start = new Timestamp(Date.valueOf("2011-01-01").getTime());
+        this.end = new Timestamp(Date.valueOf("3011-01-01").getTime());
     }
 
     //used for UI models testing only
     public DataCallback(ProjectModel projectModel) {
         this.projectModel = projectModel;
-        this.start = new Timestamp(Date.valueOf("1000-1-1").getTime());
-        this.end = new Timestamp(Date.valueOf("3000-1-1").getTime());
+        this.start = new Timestamp(Date.valueOf("2011-01-01").getTime());
+        this.end = new Timestamp(Date.valueOf("3011-01-01").getTime());
     }
 
     public void asynchronousException(Exception exception, int messageType) {
